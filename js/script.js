@@ -1,22 +1,28 @@
 let coins=0
 
+let power=1
+
+
+
 let tap=
 
 document.getElementById(
 "tap"
 )
 
-let counter=
+let coinText=
 
 document.getElementById(
-"coins"
+"coinText"
 )
+
+
 
 tap.onclick=()=>{
 
-coins++
+coins+=power
 
-counter.innerText=
+coinText.innerText=
 
 coins
 
