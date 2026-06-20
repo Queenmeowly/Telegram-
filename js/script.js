@@ -1,150 +1,102 @@
 let coins=
 
 Number(
-localStorage.coins||0
+localStorage.getItem(
+"coins"
+)||0
 )
 
 let power=
 
 Number(
-localStorage.power||1
+localStorage.getItem(
+"power"
+)||1
 )
 
-let powerLevel=
+let level=
 
 Number(
-localStorage.level||1
+localStorage.getItem(
+"level"
+)||1
 )
 
-let powerPrice=
+let price=
 
 Number(
-localStorage.price||10
+localStorage.getItem(
+"price"
+)||10
 )
 
 
 
-let last=
-
-Number(
-localStorage.last||Date.now()
-)
-
-
-
-// ماین آفلاین
-
-let passed=
-
-Math.floor(
-(
-Date.now()-last
-)
-/10000
-)
-
-coins+=passed
-
-
-
-let tap=
+const tap=
 
 document.getElementById(
 "tap"
 )
 
-
-
-let coinText=
+const coinText=
 
 document.getElementById(
 "coinText"
 )
 
+const coinSmall=
 
+document.getElementById(
+"coinSmall"
+)
 
-let levelText=
+const powerValue=
+
+document.getElementById(
+"powerValue"
+)
+
+const powerLevel=
 
 document.getElementById(
 "powerLevel"
 )
 
-
-
-let priceText=
+const upgradeLevel=
 
 document.getElementById(
-"powerPrice"
+"upgradeLevel"
+)
+
+const upgradePrice=
+
+document.getElementById(
+"upgradePrice"
 )
 
 
 
-tap.onclick=()=>{
+function save(){
 
-coins+=power
-
-
-tap.classList.add(
-"pop"
+localStorage.setItem(
+"coins",
+coins
 )
 
-
-setTimeout(()=>{
-
-tap.classList.remove(
-"pop"
+localStorage.setItem(
+"power",
+power
 )
 
-},80)
-
-
-
-save()
-
-render()
-
-}
-
-
-
-document
-.getElementById(
-"powerBtn"
+localStorage.setItem(
+"level",
+level
 )
 
-.onclick=()=>{
-
-
-if(
-coins<
-powerPrice
+localStorage.setItem(
+"price",
+price
 )
-
-return
-
-
-coins-=
-
-powerPrice
-
-
-power++
-
-powerLevel++
-
-
-// گرون شدن
-
-powerPrice=
-
-Math.floor(
-powerPrice*2.2
-)
-
-
-save()
-
-render()
 
 }
 
@@ -157,44 +109,84 @@ coinText.innerText=
 coins
 
 
-levelText.innerText=
+coinSmall.innerText=
 
-powerLevel
+coins
 
 
-priceText.innerText=
+powerValue.innerText=
 
-powerPrice
+power
+
+
+powerLevel.innerText=
+
+level
+
+
+upgradeLevel.innerText=
+
+level
+
+
+upgradePrice.innerText=
+
+price
 
 }
 
 
 
-function save(){
+tap.onclick=()=>{
 
-localStorage.coins=
+coins+=power
 
-coins
+save()
 
+render()
 
-localStorage.power=
-
-power
-
-
-localStorage.level=
-
-powerLevel
+}
 
 
-localStorage.price=
 
-powerPrice
+document
+.getElementById(
+"upgradePower"
+)
+
+.onclick=()=>{
 
 
-localStorage.last=
+if(
+coins<
+price
+){
 
-Date.now()
+return
+
+}
+
+
+
+coins-=price
+
+
+level++
+
+
+power++
+
+
+price=
+
+Math.floor(
+price*2
+)
+
+
+save()
+
+render()
 
 }
 
