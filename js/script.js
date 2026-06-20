@@ -1,79 +1,89 @@
 let coins=
-parseInt(
-localStorage.getItem(
-"coins"
+Number(
+localStorage.coins||0
 )
-)||0
-
 
 let power=
-parseInt(
-localStorage.getItem(
-"power"
+Number(
+localStorage.power||1
 )
-)||1
-
 
 let level=
-parseInt(
-localStorage.getItem(
-"level"
+Number(
+localStorage.level||1
 )
-)||1
-
 
 let price=
-parseInt(
-localStorage.getItem(
-"price"
-)
-)||10
-
-
-
-const coinText=
-document.getElementById(
-"coinText"
+Number(
+localStorage.price||10
 )
 
-const powerText=
-document.getElementById(
-"power"
+
+
+let energy=
+Number(
+localStorage.energy||100
 )
 
-const levelText=
-document.getElementById(
-"level"
+let regen=
+Number(
+localStorage.regen||3
 )
 
-const priceText=
-document.getElementById(
-"price"
+let energyPrice=
+Number(
+localStorage.energyPrice||50
+)
+
+
+
+let last=
+Number(
+localStorage.last||Date.now()
+)
+
+
+
+let hours=
+
+Math.floor(
+(
+Date.now()-last
+)
+/3600000
+)
+
+
+
+energy=
+
+Math.min(
+100,
+energy+
+hours*
+regen
 )
 
 
 
 function save(){
 
-localStorage.setItem(
-"coins",
-coins
-)
+localStorage.coins=coins
 
-localStorage.setItem(
-"power",
-power
-)
+localStorage.power=power
 
-localStorage.setItem(
-"level",
-level
-)
+localStorage.level=level
 
-localStorage.setItem(
-"price",
-price
-)
+localStorage.price=price
+
+localStorage.energy=energy
+
+localStorage.regen=regen
+
+localStorage.energyPrice=energyPrice
+
+localStorage.last=
+Date.now()
 
 }
 
@@ -81,52 +91,59 @@ price
 
 function render(){
 
-coinText.textContent=
+coinText.innerText=
 coins
 
-powerText.textContent=
-power
+power.innerText=
+window.power
 
-levelText.textContent=
-level
+price.innerText=
+window.price
 
-priceText.textContent=
-price
+energy.innerText=
+window.energy
+
+regen.innerText=
+window.regen
+
+energyPrice.innerText=
+window.energyPrice
+
+
+fill.style.width=
+
+(
+window.energy
+)+"%"
 
 }
 
 
 
-document
-.getElementById(
-"tap"
+tap.onclick=()=>{
+
+
+if(
+energy<=0
 )
+return
 
-.addEventListener(
-"click",
-
-()=>{
 
 coins+=power
+
+energy--
+
 
 save()
 
 render()
 
 }
-)
 
 
 
-document
-.getElementById(
-"buyPower"
-)
+buyPower.onclick=()=>{
 
-.addEventListener(
-"click",
-
-()=>{
 
 if(
 coins<
@@ -135,17 +152,14 @@ price
 return
 
 
-
 coins-=price
-
-
-level++
 
 
 power++
 
 
-// 10 → 20 → 40 → 80
+level++
+
 
 price*=2
 
@@ -155,7 +169,42 @@ save()
 render()
 
 }
+
+
+
+buyEnergy.onclick=()=>{
+
+
+if(
+coins<
+energyPrice
 )
+return
+
+
+coins-=energyPrice
+
+
+regen++
+
+
+// 50
+// 125
+// 312
+
+energyPrice=
+
+Math.floor(
+energyPrice*
+2.5
+)
+
+
+save()
+
+render()
+
+}
 
 
 
