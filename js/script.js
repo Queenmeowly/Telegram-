@@ -1,66 +1,54 @@
-let coins =
-Number(
+let coins=
+parseInt(
 localStorage.getItem(
 "coins"
-) || 0
 )
+)||0
 
-let power =
-Number(
+
+let power=
+parseInt(
 localStorage.getItem(
 "power"
-) || 1
 )
+)||1
 
-let level =
-Number(
+
+let level=
+parseInt(
 localStorage.getItem(
 "level"
-) || 1
 )
+)||1
 
-let price =
-Number(
+
+let price=
+parseInt(
 localStorage.getItem(
 "price"
-) || 10
 )
+)||10
 
 
 
-const tap =
-document.getElementById(
-"tap"
-)
-
-const coinText =
+const coinText=
 document.getElementById(
 "coinText"
 )
 
-const coinSmall =
+const powerText=
 document.getElementById(
-"coinSmall"
+"power"
 )
 
-const powerValue =
+const levelText=
 document.getElementById(
-"powerValue"
+"level"
 )
 
-const powerLevel =
+const priceText=
 document.getElementById(
-"powerLevel"
-)
-
-const upgradeLevel =
-document.getElementById(
-"upgradeLevel"
-)
-
-const upgradePrice =
-document.getElementById(
-"upgradePrice"
+"price"
 )
 
 
@@ -93,33 +81,33 @@ price
 
 function render(){
 
-coinText.textContent =
+coinText.textContent=
 coins
 
-coinSmall.textContent =
-coins
-
-powerValue.textContent =
+powerText.textContent=
 power
 
-powerLevel.textContent =
+levelText.textContent=
 level
 
-upgradeLevel.textContent =
-level
-
-upgradePrice.textContent =
+priceText.textContent=
 price
 
 }
 
 
 
-tap.addEventListener(
+document
+.getElementById(
+"tap"
+)
+
+.addEventListener(
 "click",
+
 ()=>{
 
-coins += power
+coins+=power
 
 save()
 
@@ -132,7 +120,7 @@ render()
 
 document
 .getElementById(
-"upgradePower"
+"buyPower"
 )
 
 .addEventListener(
@@ -141,24 +129,25 @@ document
 ()=>{
 
 if(
-coins < price
+coins<
+price
 )
 return
 
 
-coins -= price
+
+coins-=price
 
 
 level++
 
 
-power += 1
+power++
 
 
-price =
-Math.ceil(
-price * 2
-)
+// 10 → 20 → 40 → 80
+
+price*=2
 
 
 save()
