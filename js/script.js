@@ -5,14 +5,12 @@ localStorage.getItem(
 )
 )||0
 
-
 let power=
 Number(
 localStorage.getItem(
 "power"
 )
 )||1
-
 
 let level=
 Number(
@@ -21,14 +19,12 @@ localStorage.getItem(
 )
 )||1
 
-
 let price=
 Number(
 localStorage.getItem(
 "price"
 )
 )||10
-
 
 let energy=
 Number(
@@ -44,6 +40,11 @@ document.getElementById(
 "coinText"
 )
 
+const energyText=
+document.getElementById(
+"energy"
+)
+
 const powerText=
 document.getElementById(
 "power"
@@ -57,11 +58,6 @@ document.getElementById(
 const priceText=
 document.getElementById(
 "price"
-)
-
-const energyText=
-document.getElementById(
-"energy"
 )
 
 
@@ -102,6 +98,9 @@ function render(){
 coinText.textContent=
 coins
 
+energyText.textContent=
+energy
+
 powerText.textContent=
 power
 
@@ -111,22 +110,11 @@ level
 priceText.textContent=
 price
 
-energyText.textContent=
-energy
-
 }
 
 
 
-document
-.getElementById(
-"tap"
-)
-
-.addEventListener(
-"click",
-
-()=>{
+tap.onclick=()=>{
 
 if(
 energy<=0
@@ -136,58 +124,42 @@ return
 
 }
 
-
 coins+=power
 
-
 energy--
-
 
 save()
 
 render()
 
 }
-)
 
 
 
-document
-.getElementById(
-"buyPower"
-)
-
-.addEventListener(
-"click",
-
-()=>{
-
+buyPower.onclick=()=>{
 
 if(
 coins<
 price
-)
+){
+
 return
 
+}
 
 coins-=price
 
+power++
 
 level++
 
-
-power++
-
-
 price*=2
-
 
 save()
 
 render()
 
 }
-)
 
 
 
